@@ -6,6 +6,7 @@ import {
   getNextSlideIndex,
   resolveNextDialogueNode,
   ensureWritableFetch,
+  normalizeFetchDescriptor,
   type GameProject,
   type DialogueNode,
 } from './portfolioLogic';
@@ -186,4 +187,27 @@ test('ensureWritableFetch converts a getter-only fetch property into a writable 
   mockWindow.fetch = interceptedFetch;
   assert.equal(mockWindow.fetch, interceptedFetch);
 });
+
+test('normalizeFetchDescriptor adds a working setter when an extension defines a getter-only fetch descriptor', () => {
+  const mockWindow: Record<string, unknown> = {};
+  const firstExtensionFetch = () => 'ext-1';
+  const secondExtensionFetch = () => 'ext-2';
+
+  Object.defineProperty(
+    mockWindow,
+    'fetch',
+    normalizeFetchDescriptor({
+      configurable: true,
+      enumerable: true,
+      get() {
+        return firstExtensionFetch;
+      },
+    })
+  );
+
+  assert.equal(mockWindow.fetch, firstExtensionFetch);
+  mockWindow.fetch = secondExtensionFetch;
+  assert.equal(mockWindow.fetch, secondExtensionFetch);
+});
+
 

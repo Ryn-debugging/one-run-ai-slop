@@ -190,6 +190,42 @@ export function resolveNextDialogueNode(
 }
 
 /**
+ * Upgrades a getter-only or read-only PropertyDescriptor for `fetch` into a
+ * writable getter/setter or writable value descriptor so browser extensions
+ * that assign `window.fetch = ...` after another script calls
+ * `Object.defineProperty(window, 'fetch', { get })` never throw TypeError.
+ */
+export function normalizeFetchDescriptor(
+  desc: PropertyDescriptor
+): PropertyDescriptor {
+  if (typeof desc.get === 'function' && typeof desc.set !== 'function') {
+    const origGet = desc.get;
+    let hasOverride = false;
+    let overrideVal: unknown;
+    return {
+      configurable: true,
+      enumerable: desc.enumerable !== false,
+      get(this: unknown) {
+        return hasOverride ? overrideVal : origGet.call(this);
+      },
+      set(nextVal: unknown) {
+        overrideVal = nextVal;
+        hasOverride = true;
+      },
+    };
+  }
+  if ('value' in desc && desc.writable === false) {
+    return {
+      configurable: true,
+      enumerable: desc.enumerable !== false,
+      writable: true,
+      value: desc.value,
+    };
+  }
+  return desc;
+}
+
+/**
  * Ensures `fetch` on a target global object has both a getter and setter so
  * browser extensions that wrap `window.fetch = ...` do not throw
  * "TypeError: Cannot set property fetch of #<Window> which has only a getter".
@@ -207,6 +243,10 @@ export function ensureWritableFetch(target: Record<string, unknown>): boolean {
 
     if (ownDesc && ownDesc.configurable === false) {
       return false;
+    }
+
+    if (proto && protoDesc && protoDesc.configurable !== false && protoDesc.get && !protoDesc.set) {
+      Object.defineProperty(proto, 'fetch', normalizeFetchDescriptor(protoDesc));
     }
 
     if (!ownDesc || (desc && desc.get && !desc.set)) {
@@ -227,4 +267,5 @@ export function ensureWritableFetch(target: Record<string, unknown>): boolean {
     return false;
   }
 }
+
 
