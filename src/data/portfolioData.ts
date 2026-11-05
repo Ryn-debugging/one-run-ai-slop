@@ -1,19 +1,25 @@
-import { type GameProject, type SkillToolItem, type DialogueNode } from '../utils/portfolioLogic';
+import {
+  type GameProject,
+  type SkillToolItem,
+  type DialogueNode,
+  type DevlogPost,
+} from '../utils/portfolioLogic';
 
 export const STUDIO_INFO = {
-  defaultTitle: '[Your Name/Studio] Portfolio',
-  studioAlias: 'Astral & Pixel Studio',
-  developerName: 'Sora Takahashi',
-  roleLine: "Ren'Py Visual Novel Director & RPG Maker Systems Architect",
+  defaultTitle: 'Kurohane Dev — Indie Game Portfolio',
+  placeholderTemplate: '[Your Name / Studio] Portfolio',
+  studioAlias: 'Ren\'Py & RPG Maker Developer',
+  developerName: 'Ren Takahashi',
+  roleLine: 'Technical Designer · Ren\'Py (Python) & RPG Maker (JS/Ruby)',
   tagline:
-    'Crafting atmospheric, choice-driven Visual Novels in Ren\'Py and nostalgic 16-bit pixel worlds in RPG Maker—where expressive character writing meets tactile retro mechanics.',
-  location: 'Tokyo / Remote Indie Studio',
+    'Independent game developer building branching visual novels in Ren\'Py and turn-based 2D RPGs in RPG Maker MZ. Focused on custom UI screens, clean event scripting, and maintainable narrative state systems.',
+  location: 'Remote · PC / Steam / itch.io',
   itchUrl: 'https://itch.io',
   steamUrl: 'https://store.steampowered.com',
   githubUrl: 'https://github.com',
   twitterUrl: 'https://x.com',
-  discordHandle: 'astralpixel.dev',
-  contactEmail: 'hello@astralpixel.studio',
+  discordHandle: 'kurohane.dev',
+  contactEmail: 'contact@kurohane.dev',
 };
 
 export const HERO_IMAGE_URL = '/src/assets/images/hero_vn_rpg_studio_1793884384392.jpg';
@@ -21,58 +27,58 @@ export const HERO_IMAGE_URL = '/src/assets/images/hero_vn_rpg_studio_17938843843
 export const HERO_DIALOGUE_NODES: DialogueNode[] = [
   {
     id: 'hero-1',
-    speaker: 'Archivist Aria',
-    speakerRole: 'Ren\'Py Narrative Guide',
+    speaker: 'System Preview',
+    speakerRole: 'Interactive Dialogue Component',
     accentColor: 'pink',
-    text: '“Welcome to the observatory. Every project here bridges two worlds: cel-shaded visual novel storytelling and 16-bit turn-based exploration.”',
+    text: 'This widget demonstrates how branching dialogue nodes and state flags are structured in my projects. Select an option below to inspect either workflow.',
     choices: [
       {
-        label: 'Inspect the Ren\'Py Visual Novel Showcase',
+        label: 'View Ren\'Py UI & Python workflow',
         nextNodeId: 'hero-vn',
-        affectionOrStatDelta: '+10 Story Resonance',
+        affectionOrStatDelta: 'flag: renpy_spec',
       },
       {
-        label: 'Examine the 16-Bit RPG Maker Systems',
+        label: 'View RPG Maker MZ plugin & event workflow',
         nextNodeId: 'hero-rpg',
-        affectionOrStatDelta: '+10 Tactical Mastery',
+        affectionOrStatDelta: 'flag: rmmz_spec',
       },
     ],
   },
   {
     id: 'hero-vn',
-    speaker: 'Archivist Aria',
-    speakerRole: 'Ren\'Py Narrative Guide',
+    speaker: 'Ren\'Py Workflow',
+    speakerRole: 'Screen Language & Python',
     accentColor: 'pink',
-    text: '“In our Ren\'Py titles, custom Python screen language shaders, dynamic lip-sync sprites, and persistent timeline flags turn every conversation into a living memory.”',
+    text: 'Visual novel projects use custom Screen Language layouts, LayeredImage portrait definitions, and Python data dicts to track clue flags, backlog history, and route conditions.',
     choices: [
       {
-        label: 'What about the retro RPG mechanics?',
+        label: 'Switch to RPG Maker MZ workflow',
         nextNodeId: 'hero-rpg',
-        affectionOrStatDelta: 'Switch to RPG Mode',
+        affectionOrStatDelta: 'flag: rmmz_spec',
       },
       {
-        label: 'Return to the observatory entrance',
+        label: 'Reset dialogue state',
         nextNodeId: 'hero-1',
-        affectionOrStatDelta: 'Reset Loop',
+        affectionOrStatDelta: 'state: reset',
       },
     ],
   },
   {
     id: 'hero-rpg',
-    speaker: 'Guildmaster Kael',
-    speakerRole: 'RPG Maker MZ Engineer',
+    speaker: 'RPG Maker Workflow',
+    speakerRole: 'JavaScript Plugins & Eventing',
     accentColor: 'mint',
-    text: '“Our RPG Maker worlds run on custom JavaScript & RGSS plugins—featuring pixel-perfect lighting, timeline turn order displays, and zero-load seamless map transitions.”',
+    text: 'RPG projects combine structured Common Events with lightweight JavaScript plugins that override Window_Selectable and BattleManager for custom turn order and HUD layouts.',
     choices: [
       {
-        label: 'Tell me about the Visual Novel architecture',
+        label: 'Switch to Ren\'Py workflow',
         nextNodeId: 'hero-vn',
-        affectionOrStatDelta: 'Switch to VN Mode',
+        affectionOrStatDelta: 'flag: renpy_spec',
       },
       {
-        label: 'Return to the observatory entrance',
+        label: 'Reset dialogue state',
         nextNodeId: 'hero-1',
-        affectionOrStatDelta: 'Reset Loop',
+        affectionOrStatDelta: 'state: reset',
       },
     ],
   },
@@ -80,9 +86,9 @@ export const HERO_DIALOGUE_NODES: DialogueNode[] = [
 
 export const FEATURED_PROJECTS: GameProject[] = [
   {
-    id: 'astral-conservatory',
-    title: 'Chronicles of the Astral Conservatory',
-    subtitle: 'A Celestial Time-Loop Mystery Visual Novel',
+    id: 'archive-protocol',
+    title: 'Archive Protocol: Night Shift',
+    subtitle: 'Investigative Visual Novel',
     category: 'Visual Novels',
     genreLabel: 'Visual Novel',
     engine: "Ren'Py 8.2",
@@ -92,90 +98,99 @@ export const FEATURED_PROJECTS: GameProject[] = [
     badges: ['Visual Novel', "Ren'Py", 'Rich Story'],
     bannerUrl: '/src/assets/images/featured_renpy_vn_1793884384962.jpg',
     shortHook:
-      'Unravel a midnight conspiracy inside a floating starlit archive where every dialogue choice rewires the constellations—and the memories of those you trust.',
+      'An investigative mystery visual novel featuring a custom evidence board screen, persistent clue flags across chapters, and layered character sprites.',
     synopsis:
-      'Set inside the glass dome of the High Astral Conservatory, you play as Selene, a newly appointed Starlight Archivist who discovers that the empire’s historical records are being rewritten each night at the stroke of twelve. Built in Ren\'Py 8.2 with a custom Python astrolabe deduction screen, the game blends expressive multi-layered anime character sprites, original chamber music, and a branching flowchart that remembers your knowledge across loops.',
+      'Archive Protocol is a mystery visual novel built in Ren\'Py 8.2. Players review witness statements, cross-reference document logs in a custom Screen Language evidence menu, and unlock dialogue branches based on collected flags. The UI replaces the default Ren\'Py template with custom-scripted backlog, save/load, and notebook screens.',
     keyFeatures: [
-      '185,000+ words of branching narrative with 6 distinct canon endings and 28 unlocked CG illustrations',
-      'Custom Python Astrolabe Deduction UI built natively in Ren\'Py Screen Language for piecing together clues',
-      'Dynamic layered character portraits with eye-blink, lip-sync, and ambient candlelight rim-lighting shaders',
-      'Interactive Timeline Flowchart allowing players to jump to previously visited nodes without losing clue flags',
+      'Custom Screen Language evidence notebook that filters unlocked clues and updates character profile states',
+      'LayeredImage character sprites supporting separate eye, mouth, and coat state toggles without duplicate PNGs',
+      'Python state validator script that checks for unreachable labels and missing flag references at build time',
+      'Custom ATL transitions for smooth camera pans, evidence popups, and textbox opacity controls',
     ],
     metrics: {
-      playtime: '12–15 Hours',
-      wordCountOrMaps: '185,000 Words',
-      endingsOrClasses: '6 True Endings',
+      playtime: '~3.5 Hours',
+      wordCountOrMaps: '32,000 Words',
+      endingsOrClasses: '3 Endings',
+    },
+    vnCustomUi: {
+      chapterLabel: 'CHAPTER 2 · ARCHIVE DESK · CLUE CHECK',
+      speaker: 'Selene (Records Clerk)',
+      speakerTitle: 'LayeredImage: selene_coat_neutral',
+      quote:
+        '“The ledger timestamps don’t match the gate log. If I flag Entry #14 in the notebook, I can question the supervisor during the morning briefing.”',
+      resonancePercent: 65,
+      unlockedRouteName: 'Active Flag: ledger_discrepancy_found = True',
     },
     itchUrl: 'https://itch.io',
     steamUrl: 'https://store.steampowered.com',
     screenshots: [
       {
-        id: 'astral-ss-1',
-        title: 'The Midnight Astrolabe Chamber',
-        caption: 'Selene cross-examines the celestial dial during Loop IV using the custom Ren\'Py clue inspection HUD.',
+        id: 'archive-ss-1',
+        title: 'Main Desk Investigation Screen',
+        caption: 'Custom Ren\'Py Screen Language overlay displaying active document clues and dialogue controls.',
         imageUrl: '/src/assets/images/featured_renpy_vn_1793884384962.jpg',
         sceneType: 'vn-cg',
-        hudOverlayText: 'ACT II · THE GLASS ARCHIVE — “If this star chart is real, the Third Eclipse never happened.”',
+        hudOverlayText: 'SCREEN: evidence_inspect · $ clues_unlocked = 4/6',
       },
       {
-        id: 'astral-ss-2',
-        title: 'Observatory Balcony Encounter',
-        caption: 'Dual-perspective dialogue system where your relationship affinity subtly shifts ambient background music layers.',
+        id: 'archive-ss-2',
+        title: 'Exterior Balcony Dialogue Node',
+        caption: 'Multi-layer background composition using Ren\'Py camera perspective and character tinting.',
         imageUrl: '/src/assets/images/hero_vn_rpg_studio_1793884384392.jpg',
         sceneType: 'vn-dialogue',
-        hudOverlayText: 'AFFINITY CHECK [ASTRAL RESONANCE ≥ 4] — Unlocked Hidden Testimony Branch',
+        hudOverlayText: 'LABEL: ch2_balcony_talk · Condition: has_keycard == True',
       },
       {
-        id: 'astral-ss-3',
-        title: 'Rainy Platform Epilogue Route',
-        caption: 'One of six major route departures when escaping the capital on the last night train.',
+        id: 'archive-ss-3',
+        title: 'Station Platform Epilogue',
+        caption: 'Route B ending sequence triggered by resolving the ledger audit before Day 4.',
         imageUrl: '/src/assets/images/game_vn_amber_rain_1793884388713.jpg',
         sceneType: 'vn-dialogue',
-        hudOverlayText: 'ENDING 04 · LETTERS FROM STATION NINE — Persistent Flag Saved to Global Memory',
+        hudOverlayText: 'ENDING B · persistent.endings_seen.add("route_b")',
       },
     ],
     dialoguePreview: [
       {
-        id: 'ac-1',
+        id: 'ap-1',
         speaker: 'Selene',
-        speakerRole: 'Chief Starlight Archivist',
+        speakerRole: 'Records Clerk',
         accentColor: 'pink',
-        text: '“The brass rings on the astrolabe are still warm. Someone adjusted the meridian less than ten minutes ago.”',
+        text: '“I have both the gate log and the ledger open on the desk. Which entry should I cross-reference before filing the report?”',
         choices: [
           {
-            label: 'Dust the outer ring for alchemical ink',
-            nextNodeId: 'ac-2',
-            affectionOrStatDelta: '+Clue: Silver Ink',
+            label: 'Compare timestamp on Entry #14',
+            nextNodeId: 'ap-2',
+            affectionOrStatDelta: '$ clue_timestamp = True',
           },
           {
-            label: 'Confront the night watchman on the spiral stairs',
-            nextNodeId: 'ac-3',
-            affectionOrStatDelta: '+Boldness +2',
+            label: 'Check supervisor signature block',
+            nextNodeId: 'ap-3',
+            affectionOrStatDelta: '$ clue_signature = True',
           },
         ],
       },
       {
-        id: 'ac-2',
+        id: 'ap-2',
         speaker: 'Selene',
-        speakerRole: 'Chief Starlight Archivist',
+        speakerRole: 'Records Clerk',
         accentColor: 'pink',
-        text: '“Unmistakable. Nocturne-grade silver phosphor—only the Chancellor’s inner circle has access to this ink.”',
-        nextNodeId: 'ac-1',
+        text: '“Entry #14 was logged forty minutes after the building locked down. That unlocks the contradiction prompt for the next scene.”',
+        nextNodeId: 'ap-1',
       },
       {
-        id: 'ac-3',
+        id: 'ap-3',
         speaker: 'Selene',
-        speakerRole: 'Chief Starlight Archivist',
+        speakerRole: 'Records Clerk',
         accentColor: 'pink',
-        text: '“Footsteps echo above the dome glass. If I hurry, I can catch them before the clocktower chimes midnight.”',
-        nextNodeId: 'ac-1',
+        text: '“The signature uses a different badge ID than the rest of the week. Added to the evidence notebook.”',
+        nextNodeId: 'ap-1',
       },
     ],
   },
   {
-    id: 'echoes-of-veridia',
-    title: 'Echoes of Veridia: 16-Bit Odyssey',
-    subtitle: 'Retro Pixel-Art Tactical Adventure RPG',
+    id: 'veridia-shard',
+    title: 'Veridia Shard: Ruin Explorer',
+    subtitle: 'Turn-Based 16-Bit Dungeon RPG',
     category: 'RPGs',
     genreLabel: 'Retro Pixel RPG',
     engine: 'RPG Maker MZ',
@@ -185,83 +200,115 @@ export const FEATURED_PROJECTS: GameProject[] = [
     badges: ['RPG', 'RPG Maker', 'Pixel Art'],
     bannerUrl: '/src/assets/images/featured_rpg_maker_1793884387321.jpg',
     shortHook:
-      'Lead a three-hero expedition across bioluminescent pixel ruins, chain elemental combo arts, and restore the shattered Mana Shrines of Veridia.',
+      'A classic turn-based RPG built in RPG Maker MZ with visible on-map encounters, a custom CTB turn-order plugin, and puzzle-driven dungeon maps.',
     synopsis:
-      'Built in RPG Maker MZ with a custom suite of 14 TypeScript/JavaScript plugins, Echoes of Veridia pays homage to golden-era 16-bit console RPGs while introducing modern quality-of-life pacing. Featuring zero random encounters (all enemies visible on-map with reactive AI patrol routes), a timeline-based Break & Boost turn system, and hand-pixelled tilesets with dynamic torch and crystal point-lighting.',
+      'Veridia Shard is a 3-to-4 hour retro dungeon RPG developed in RPG Maker MZ. It replaces random encounters with on-map enemy events that use region-ID patrol paths, and features a custom JavaScript battle HUD plugin showing upcoming turn order, elemental shield counts, and party combo skills.',
     keyFeatures: [
-      '95+ hand-pixelled overworld, shrine, and dungeon maps with custom parallax lighting and water reflection shaders',
-      'Bespoke JavaScript Timeline CTB Battle Engine with Dual/Triple Tech party combo attacks and shield-break mechanics',
-      'Campfire Party Skits inspired by classic JRPGs—trigger optional character banter and cooking buffs at any shrine',
-      'Full controller, keyboard, and Steam Deck verification with 60 FPS pixel-perfect integer scaling',
+      '22 hand-mapped dungeon and town areas using custom 48x48 pixel tilesets and region-based collision rules',
+      'Custom RPG Maker MZ JavaScript plugin for CTB turn-order preview and elemental shield-break states',
+      'Common Event camp menu allowing players to craft healing items, swap party passives, and read short party skits',
+      'Clean integer-scaled 60 FPS window configuration with full gamepad and keyboard remapping',
     ],
     metrics: {
-      playtime: '22–28 Hours',
-      wordCountOrMaps: '95 Pixel Maps',
-      endingsOrClasses: '8 Job Classes',
+      playtime: '3–4 Hours',
+      wordCountOrMaps: '22 Custom Maps',
+      endingsOrClasses: '4 Party Classes',
     },
+    rpgPartyStatus: [
+      {
+        name: 'Rowan',
+        job: 'Vanguard',
+        level: 12,
+        hp: 240,
+        maxHp: 260,
+        mp: 35,
+        maxMp: 45,
+        equippedRelic: 'Iron Crest',
+      },
+      {
+        name: 'Elara',
+        job: 'Cleric',
+        level: 12,
+        hp: 180,
+        maxHp: 180,
+        mp: 95,
+        maxMp: 110,
+        equippedRelic: 'oak Staff',
+      },
+      {
+        name: 'Kaelen',
+        job: 'Scout',
+        level: 11,
+        hp: 205,
+        maxHp: 215,
+        mp: 50,
+        maxMp: 60,
+        equippedRelic: 'Shortbow +1',
+      },
+    ],
     itchUrl: 'https://itch.io',
     steamUrl: 'https://store.steampowered.com',
     screenshots: [
       {
         id: 'veridia-ss-1',
-        title: 'The Emerald Mana Shrine Overworld',
-        caption: 'Real-time dynamic point-lighting plugin illuminating water tiles and ancient stonework in the Whispering Woods.',
+        title: 'Forest Shrine Save Point Map',
+        caption: 'Map #08 using custom region-ID event triggers and a PixiJS point-light overlay on the central crystal.',
         imageUrl: '/src/assets/images/featured_rpg_maker_1793884387321.jpg',
         sceneType: 'rpg-map',
-        hudOverlayText: 'LOC: WHISPERING SHRINE · PARTY HP 420/420 · MANA RESONANCE: STABLE',
+        hudOverlayText: 'MAP 08 · RegionTrigger: Save & Camp Common Event #12',
       },
       {
         id: 'veridia-ss-2',
-        title: 'Clockwork Alchemy Boss Encounter',
-        caption: 'Turn-order timeline combat inside the Brass Foundry, showcasing elemental potion synthesis mid-battle.',
+        title: 'Foundry Boss Encounter (Side-View Battle)',
+        caption: 'Custom Window_BattleStatus layout and shield-break counter against the Floor 3 automaton boss.',
         imageUrl: '/src/assets/images/game_rpg_clockwork_dungeon_1793884390110.jpg',
         sceneType: 'rpg-battle',
-        hudOverlayText: 'COMBO ART READY: [AETHER NOVA] · BOSS SHIELD: 1 STACK REMAINING',
+        hudOverlayText: 'BattleManager · TurnOrder: [Rowan -> Elara -> Automaton]',
       },
       {
         id: 'veridia-ss-3',
-        title: 'Starlight Overlook Campfire Skit',
-        caption: 'Resting at vista points unlocks visual-novel style portrait skits between party members.',
+        title: 'Town Overlook Dialogue Event',
+        caption: 'Integrating bust portraits with standard RPG Maker MZ message windows via plugin parameters.',
         imageUrl: '/src/assets/images/hero_vn_rpg_studio_1793884384392.jpg',
         sceneType: 'rpg-map',
-        hudOverlayText: 'CAMPFIRE SKIT #14 · “Why the Old Guild Sealed the Northern Spire”',
+        hudOverlayText: 'EVENT #04 · Show Text [Bust_Left, Window_Normal]',
       },
     ],
     dialoguePreview: [
       {
-        id: 'ev-1',
-        speaker: 'Rowan (Vanguard)',
-        speakerRole: 'Lv. 18 Sky-Knight',
+        id: 'vs-1',
+        speaker: 'Rowan',
+        speakerRole: 'Lv. 12 Vanguard',
         accentColor: 'mint',
-        text: '“The Emerald Shrine crystal is pulsing again! If we channel Lyra’s gale magic into the obelisk, the bridge to the Sunken Sanctum should materialize.”',
+        text: '“We reached the shrine save point before the boss room. Should we spend MP to unlock the shortcut gate or rest at camp first?”',
         choices: [
           {
-            label: '[Cast Gale Resonance] — 15 MP',
-            nextNodeId: 'ev-2',
-            affectionOrStatDelta: 'Unlock Secret Path',
+            label: 'Activate gate switch (-10 MP)',
+            nextNodeId: 'vs-2',
+            affectionOrStatDelta: 'Switch #018 = ON',
           },
           {
-            label: '[Set Up Campfire First] — Restore Party HP/MP',
-            nextNodeId: 'ev-3',
-            affectionOrStatDelta: '+100% HP/MP + Skit',
+            label: 'Run Camp Common Event (Full Recovery)',
+            nextNodeId: 'vs-3',
+            affectionOrStatDelta: '$gameParty.recoverAll()',
           },
         ],
       },
       {
-        id: 'ev-2',
-        speaker: 'Elara (Runeseer)',
-        speakerRole: 'Lv. 18 Sage',
+        id: 'vs-2',
+        speaker: 'Elara',
+        speakerRole: 'Lv. 12 Cleric',
         accentColor: 'mint',
-        text: '“Resonance complete! The ancient stone tiles have risen from the river—and look, a rare Aether Chest is gleaming on the far ledge.”',
-        nextNodeId: 'ev-1',
+        text: '“Self-Switch A enabled on the bridge event. We can now bypass the outer dungeon corridor if we need to return to town.”',
+        nextNodeId: 'vs-1',
       },
       {
-        id: 'ev-3',
-        speaker: 'Rowan (Vanguard)',
-        speakerRole: 'Lv. 18 Sky-Knight',
+        id: 'vs-3',
+        speaker: 'Rowan',
+        speakerRole: 'Lv. 12 Vanguard',
         accentColor: 'mint',
-        text: '“Nothing beats warmMint Herb Stew before a boss floor. All party stats boosted by +15% for the next 3 battles!”',
-        nextNodeId: 'ev-1',
+        text: '“Party HP and MP restored, and State #14 (DEF Up) applied for the next encounter.”',
+        nextNodeId: 'vs-1',
       },
     ],
   },
@@ -270,334 +317,318 @@ export const FEATURED_PROJECTS: GameProject[] = [
 export const LIBRARY_GAMES: GameProject[] = [
   ...FEATURED_PROJECTS,
   {
-    id: 'amber-rain-station-9',
-    title: 'Amber Rain at Station 9',
-    subtitle: 'Lo-Fi Supernatural Train Mystery',
+    id: 'last-train-station-9',
+    title: 'Last Train at Station 9',
+    subtitle: 'Short Mystery Visual Novel (NanoRenO Entry)',
     category: 'Visual Novels',
-    genreLabel: 'Visual Novel · Mystery',
+    genreLabel: 'Visual Novel · Short Story',
     engine: "Ren'Py 8.2",
     releaseYear: '2025',
     status: 'Released',
-    badges: ['Visual Novel', "Ren'Py", 'Atmospheric Audio'],
+    badges: ['Visual Novel', "Ren'Py", 'Game Jam'],
     bannerUrl: '/src/assets/images/game_vn_amber_rain_1793884388713.jpg',
     shortHook:
-      'Stranded at a rural mountain station during a typhoon, five passengers realize their midnight train only stops for unresolved regrets.',
+      'A 45-minute single-location visual novel built for NanoRenO, featuring an interactive audio log inventory and two branching endings.',
     synopsis:
-      'Created originally for NanoRenO and expanded into a full commercial release, Amber Rain at Station 9 combines melancholic rain-soaked anime backgrounds with an interactive cassette-tape inventory system. Players record ambient sounds on the platform and play them back during conversations to jog the memories of fellow passengers.',
+      'Developed in four weeks for NanoRenO, Last Train at Station 9 focuses on tight scope and polished presentation. Players inspect items on a rainy train platform and use a custom-scripted cassette player screen to replay recorded ambient clues during dialogue.',
     keyFeatures: [
-      '65,000 words of intimate, character-driven suspense with 4 endings and full Japanese/English text toggle',
-      'Interactive Cassette Recorder mechanic scripted in Python inside Ren\'Py for acoustic clue gathering',
-      'Dynamic rain & thunder audio bus mixer that responds to story tension and indoor/outdoor scene transitions',
+      '9,500 words with 2 main endings and a post-credits epilogue unlocked via `persistent` variables',
+      'Custom Screen Language audio player widget that crossfades rain and train ambience channels',
+      ' Clean keyboard/mouse accessibility including custom text-speed, font-toggle, and skip-unseen options',
     ],
     metrics: {
-      playtime: '5–6 Hours',
-      wordCountOrMaps: '65,000 Words',
-      endingsOrClasses: '4 Endings',
+      playtime: '45 Mins',
+      wordCountOrMaps: '9,500 Words',
+      endingsOrClasses: '2 Endings',
     },
     itchUrl: 'https://itch.io',
     steamUrl: 'https://store.steampowered.com',
     screenshots: [
       {
-        id: 'amber-ss-1',
-        title: 'Platform 2 at 11:48 PM',
-        caption: 'Inspecting the neon station sign and talking with the girl holding the sakura-tinted umbrella.',
+        id: 'station-ss-1',
+        title: 'Platform Dialogue & Rain Layer',
+        caption: 'Animated rain particle displayable layered behind the character sprite and custom textbox.',
         imageUrl: '/src/assets/images/game_vn_amber_rain_1793884388713.jpg',
         sceneType: 'vn-dialogue',
-        hudOverlayText: 'CASSETTE TAPE #02 RECORDED — “The Sound of a Coin Dropping in the Old Ticket Booth”',
+        hudOverlayText: 'AUDIO BUS: ambient_rain (0.75) · sfx_train_idle (0.40)',
       },
       {
-        id: 'amber-ss-2',
-        title: 'The Archive Car Flashback',
-        caption: 'Memory reconstruction sequence linking Station 9 to the old observatory.',
+        id: 'station-ss-2',
+        title: 'Clue Notebook Screen',
+        caption: 'Reviewing collected ticket stubs and audio timestamps before the train departs.',
         imageUrl: '/src/assets/images/featured_renpy_vn_1793884384962.jpg',
         sceneType: 'vn-cg',
-        hudOverlayText: 'MEMORY FRAGMENT RESTORED · CHAPTER 3: THE LAST CONDUCTOR',
+        hudOverlayText: 'SCREEN: tape_inventory · Selected: Tape_02',
       },
     ],
     dialoguePreview: [
       {
-        id: 'ar-1',
+        id: 'st-1',
         speaker: 'Minori',
-        speakerRole: 'Passenger with the Umbrella',
+        speakerRole: 'Station Passenger',
         accentColor: 'pink',
-        text: '“That train has been idling on Track 1 for twenty minutes, yet the conductor hasn’t opened a single door.”',
+        text: '“The departure board hasn’t updated since 11:30 PM. Did you find anything near the ticket booth?”',
         choices: [
           {
-            label: 'Play Cassette Recording #02 (Ticket Bell)',
-            nextNodeId: 'ar-2',
-            affectionOrStatDelta: 'Trigger Memory',
+            label: 'Show stamped platform ticket',
+            nextNodeId: 'st-2',
+            affectionOrStatDelta: '$ showed_ticket = True',
           },
           {
-            label: 'Offer her a warm canned coffee from the machine',
-            nextNodeId: 'ar-3',
-            affectionOrStatDelta: '+Trust +1',
+            label: 'Ask about the station master',
+            nextNodeId: 'st-3',
+            affectionOrStatDelta: '$ asked_staff = True',
           },
         ],
       },
       {
-        id: 'ar-2',
+        id: 'st-2',
         speaker: 'Minori',
-        speakerRole: 'Passenger with the Umbrella',
+        speakerRole: 'Station Passenger',
         accentColor: 'pink',
-        text: '“Wait… where did you record that chime? That’s the old bronze bell they retired ten summers ago!”',
-        nextNodeId: 'ar-1',
+        text: '“That date stamp is from yesterday’s express run. Let’s check the waiting room bench next.”',
+        nextNodeId: 'st-1',
       },
       {
-        id: 'ar-3',
+        id: 'st-3',
         speaker: 'Minori',
-        speakerRole: 'Passenger with the Umbrella',
+        speakerRole: 'Station Passenger',
         accentColor: 'pink',
-        text: '“Thank you. My hands were freezing… Maybe we have time to share our stories before the departure bell rings.”',
-        nextNodeId: 'ar-1',
+        text: '“The office light is on, but the door is locked from the inside.”',
+        nextNodeId: 'st-1',
       },
     ],
   },
   {
-    id: 'clockwork-sovereign',
-    title: 'Alchemist of the Clockwork Spire',
-    subtitle: 'Dungeon Crawler & Potion Crafting RPG',
+    id: 'brass-foundry-crawler',
+    title: 'Brass Foundry: Alchemist’s Trial',
+    subtitle: 'Tactical Crafting RPG',
     category: 'RPGs',
-    genreLabel: 'Dungeon RPG · Pixel Art',
+    genreLabel: 'Dungeon RPG · Crafting',
     engine: 'RPG Maker MZ',
     releaseYear: '2024',
     status: 'Released',
-    badges: ['RPG', 'RPG Maker', 'Tactical Alchemy'],
+    badges: ['RPG', 'RPG Maker', 'Crafting System'],
     bannerUrl: '/src/assets/images/game_rpg_clockwork_dungeon_1793884390110.jpg',
     shortHook:
-      'Brew unstable volatile elixirs mid-combat and dismantle brass automata across a 30-floor mechanical citadel.',
+      'A compact 5-floor dungeon crawler built around a custom reagent-mixing combat plugin where skills consume crafted vials instead of MP.',
     synopsis:
-      'Alchemist of the Clockwork Spire replaces traditional MP bars with an active Reagent Grid inside RPG Maker MZ. Every spell requires combining Mint Ether, Rose Quartz, and Brass Catalyst vials dropped by dungeon mechanisms—rewarding clever inventory synthesis and turn-order manipulation.',
+      'Brass Foundry was designed to test a resource-driven combat loop in RPG Maker MZ. Instead of standard MP pools, characters carry a 6-slot reagent pouch into battle. Combining two reagents via a custom battle sub-window triggers elemental effects and status debuffs.',
     keyFeatures: [
-      'Custom RPG Maker MZ Reagent Synthesis plugin allowing 48 unique potion combinations without leaving battle',
-      'Grid-based mechanical floor puzzles with pushable gear conduits, steam valves, and timed trapdoors',
-      'Original 16-bit FM-synth soundtrack composed in Furnace Tracker for authentic retro hardware warmth',
+      'Custom `Window_ReagentMix` JavaScript plugin integrated directly into `Scene_Battle`',
+      '5 interconnected dungeon floors featuring push-block gear puzzles and switch-operated steam doors',
+      'Balanced 90-minute campaign with 12 recipe combinations and a boss rush mode',
     ],
     metrics: {
-      playtime: '10–12 Hours',
-      wordCountOrMaps: '42 Dungeon Floors',
-      endingsOrClasses: '48 Elixir Recipes',
+      playtime: '1.5 Hours',
+      wordCountOrMaps: '8 Dungeon Maps',
+      endingsOrClasses: '12 Recipes',
     },
     itchUrl: 'https://itch.io',
     steamUrl: 'https://store.steampowered.com',
     screenshots: [
       {
-        id: 'clock-ss-1',
-        title: 'Floor 14: The Brass Automaton Laboratory',
-        caption: 'Synthesizing a Mint-Rose Dual Surge elixir to short-circuit the Iron Warden’s armor plating.',
+        id: 'foundry-ss-1',
+        title: 'Floor 3 Boss Battle & Reagent HUD',
+        caption: 'Mixing two potion reagents mid-turn to apply Armor Break on the Iron Automaton.',
         imageUrl: '/src/assets/images/game_rpg_clockwork_dungeon_1793884390110.jpg',
         sceneType: 'rpg-battle',
-        hudOverlayText: 'ALCHEMICAL REACTION: [VAPOR OVERLOAD] — 640 AETHER DAMAGE!',
+        hudOverlayText: 'Plugin: FoundryMix.js · Recipe[Ether + Catalyst] -> ArmorBreak',
       },
       {
-        id: 'clock-ss-2',
-        title: 'Subterranean Mana Conduit',
-        caption: 'Discovering an overgrown crystal reservoir beneath the clockwork citadel.',
+        id: 'foundry-ss-2',
+        title: 'Lower Conduit Map',
+        caption: 'Harvesting raw reagent nodes that respawn after 3 completed battles.',
         imageUrl: '/src/assets/images/featured_rpg_maker_1793884387321.jpg',
         sceneType: 'rpg-map',
-        hudOverlayText: 'REAGENT HARVESTED: PURE MINT ETHER x3',
+        hudOverlayText: 'Variable #024 (BattleCount) >= 3 -> Respawn Node',
       },
     ],
     dialoguePreview: [
       {
-        id: 'cs-1',
-        speaker: 'Master Alchemist',
-        speakerRole: 'Guild Artificer',
+        id: 'bf-1',
+        speaker: 'Combat Log',
+        speakerRole: 'Scene_Battle Sub-Window',
         accentColor: 'mint',
-        text: '“The Iron Warden’s core is shielded against physical strikes! Mix two reagents in your flask before its gear-charge hits 100%!”',
+        text: 'The Iron Automaton raises its guard (Physical DEF +50%). Select a reagent action from the alchemy sub-menu:',
         choices: [
           {
-            label: 'Mix [Mint Ether] + [Rose Catalyst]',
-            nextNodeId: 'cs-2',
-            affectionOrStatDelta: 'Armor Shatter!',
+            label: 'Mix [Acid Vial] + [Copper Dust]',
+            nextNodeId: 'bf-2',
+            affectionOrStatDelta: 'Apply: Corrode (-DEF)',
           },
           {
-            label: 'Deploy [Aether Smoke Bomb] & Reposition',
-            nextNodeId: 'cs-3',
-            affectionOrStatDelta: '+Evasion +50%',
+            label: 'Use [Smoke Flask] to delay enemy turn',
+            nextNodeId: 'bf-3',
+            affectionOrStatDelta: 'AGI Debuff + Turn Push',
           },
         ],
       },
       {
-        id: 'cs-2',
-        speaker: 'Master Alchemist',
-        speakerRole: 'Guild Artificer',
+        id: 'bf-2',
+        speaker: 'Combat Log',
+        speakerRole: 'Scene_Battle Sub-Window',
         accentColor: 'mint',
-        text: '“Direct hit! The luminescent reaction melted its brass carapace—all party attacks now deal Critical Damage!”',
-        nextNodeId: 'cs-1',
+        text: 'Corrode applied! Enemy physical defense reduced to 0.8x for 3 turns.',
+        nextNodeId: 'bf-1',
       },
       {
-        id: 'cs-3',
-        speaker: 'Master Alchemist',
-        speakerRole: 'Guild Artificer',
+        id: 'bf-3',
+        speaker: 'Combat Log',
+        speakerRole: 'Scene_Battle Sub-Window',
         accentColor: 'mint',
-        text: '“The party slipped behind the alchemy benches just as the Warden’s laser swept the floor!”',
-        nextNodeId: 'cs-1',
+        text: 'Enemy action pushed back 2 slots on the turn order bar.',
+        nextNodeId: 'bf-1',
       },
     ],
   },
   {
-    id: 'starlight-grimoire-proto',
-    title: 'Project Grimoire: Hybrid VN-RPG Engine',
-    subtitle: 'Ren\'Py + Tactical Hex Grid Prototype',
+    id: 'renpy-grid-cdd',
+    title: 'Ren\'Py Grid Walker (CDD Prototype)',
+    subtitle: 'Open-Source Python Displayable Module',
     category: 'Prototypes',
-    genreLabel: 'Engine Prototype · Hybrid',
+    genreLabel: 'Prototype · Python CDD',
     engine: "Ren'Py + Python",
     releaseYear: '2026',
-    status: 'Game Jam Winner',
-    badges: ['Prototype', "Ren'Py", 'Python Creator-Defined Displayables'],
+    status: 'Released',
+    badges: ['Prototype', "Ren'Py", 'Python CDD'],
     bannerUrl: '/src/assets/images/hero_vn_rpg_studio_1793884384392.jpg',
     shortHook:
-      'An open-source technical prototype embedding a 60 FPS pixel-art tactical grid and spell-weaving system directly inside Ren\'Py using Creator-Defined Displayables.',
+      'A lightweight `renpy.Displayable` script that embeds a tile-based movement and inspection minigame inside a standard Ren\'Py project.',
     synopsis:
-      'Built in 72 hours for the Winter Narrative Mechanics Jam (1st Place Technical Innovation), Project Grimoire proves how far Ren\'Py can be pushed with pure Python. It seamlessly transitions from expressive visual novel dialogue boxes into an isometric pixel-art familiar summoning board without external game engines.',
+      'Built as a reusable utility for visual novel developers who want point-and-click or tile-based room exploration between dialogue chapters. Written in pure Python using `renpy.Render` and `pygame_sdl2` key events, requiring no external dependencies.',
     keyFeatures: [
-      'Custom `renpy.Displayable` subclass rendering sprite-sheet animations, tile pathfinding (A*), and particle trails',
-      'Live variable sync between tactical board outcomes and subsequent Ren\'Py dialogue script branches',
-      'Downloadable `.rpy` module for fellow indie devs looking to add lightweight RPG minigames to their visual novels',
+      'Subclasses `renpy.Displayable` to handle 2D tile coordinates, collision arrays, and sprite frame stepping',
+      'Returns interacted object IDs directly to the calling `.rpy` label so dialogue scripts stay clean',
+      'Includes commented example project and MIT license for easy drop-in use',
     ],
     metrics: {
-      playtime: '45 Mins Demo',
-      wordCountOrMaps: '1,400 Lines Python',
-      endingsOrClasses: 'Open Source MIT',
+      playtime: '15 Mins Demo',
+      wordCountOrMaps: '420 Lines Python',
+      endingsOrClasses: 'MIT Open Source',
     },
     itchUrl: 'https://itch.io',
     steamUrl: 'https://store.steampowered.com',
     screenshots: [
       {
-        id: 'grim-ss-1',
-        title: 'Observatory Summoning Balcony',
-        caption: 'Summoning a pixel-art sprite familiar directly from a Ren\'Py visual novel grimoire menu.',
+        id: 'cdd-ss-1',
+        title: 'Custom Displayable Room View',
+        caption: 'Rendering a sprite sheet and tile collision map inside a Ren\'Py screen frame.',
         imageUrl: '/src/assets/images/hero_vn_rpg_studio_1793884384392.jpg',
         sceneType: 'vn-cg',
-        hudOverlayText: 'REN\'PY CDD RENDERER: 60.0 FPS · FAMILIAR BOND LEVEL 5',
-      },
-      {
-        id: 'grim-ss-2',
-        title: 'Archive Script Debugger Overlay',
-        caption: 'Inspecting real-time narrative state variables during dialogue testing.',
-        imageUrl: '/src/assets/images/featured_renpy_vn_1793884384962.jpg',
-        sceneType: 'vn-dialogue',
-        hudOverlayText: 'PYTHON STATE: $ grimoire_mana = 85 | $ familiar_form = "pixie_mint"',
+        hudOverlayText: 'call screen room_explore(map_id="study") -> _return = "desk_lamp"',
       },
     ],
     dialoguePreview: [
       {
-        id: 'pg-1',
-        speaker: 'Familiar Sprite',
-        speakerRole: '16-Bit Astral Companion',
+        id: 'cdd-1',
+        speaker: 'CDD Debug Console',
+        speakerRole: 'renpy.Displayable Event Loop',
         accentColor: 'mint',
-        text: '“Chirp! You just invoked a Python Creator-Defined Displayable inside a Ren\'Py textbox! Which module shall we test?”',
+        text: 'Player tile position: (4, 2). Facing: NORTH (Tile ID: #03 Bookshelf). Press Action to return object ID to Ren\'Py script:',
         choices: [
           {
-            label: 'Run A* Tile Pathfinding Benchmark',
-            nextNodeId: 'pg-2',
-            affectionOrStatDelta: '0.4ms Compute',
+            label: 'Interact with Tile #03 (Return "bookshelf")',
+            nextNodeId: 'cdd-2',
+            affectionOrStatDelta: '_return = "bookshelf"',
           },
           {
-            label: 'Trigger Dynamic Visual Novel Camera Pan',
-            nextNodeId: 'pg-3',
-            affectionOrStatDelta: 'ATL Matrix 3D',
+            label: 'Step East to Tile (5, 2)',
+            nextNodeId: 'cdd-3',
+            affectionOrStatDelta: 'pos = (5, 2)',
           },
         ],
       },
       {
-        id: 'pg-2',
-        speaker: 'Familiar Sprite',
-        speakerRole: '16-Bit Astral Companion',
+        id: 'cdd-2',
+        speaker: 'CDD Debug Console',
+        speakerRole: 'renpy.Displayable Event Loop',
         accentColor: 'mint',
-        text: '“Path calculated across 64 obstacle tiles in 0.4 milliseconds—and returned the result straight to the `.rpy` script label!”',
-        nextNodeId: 'pg-1',
+        text: 'Displayable exited cleanly with `_return = "bookshelf"`. Jumping to label `inspect_bookshelf` in `script.rpy`.',
+        nextNodeId: 'cdd-1',
       },
       {
-        id: 'pg-3',
-        speaker: 'Familiar Sprite',
-        speakerRole: '16-Bit Astral Companion',
+        id: 'cdd-3',
+        speaker: 'CDD Debug Console',
+        speakerRole: 'renpy.Displayable Event Loop',
         accentColor: 'mint',
-        text: '“Ren\'Py ATL `perspective True` camera engaged! Multi-plane parallax backgrounds shift smoothly as you move the cursor.”',
-        nextNodeId: 'pg-1',
+        text: 'Collision check passed (`collision_map[2][5] == 0`). Redrawing canvas via `renpy.redraw(self, 0)`.',
+        nextNodeId: 'cdd-1',
       },
     ],
   },
   {
-    id: 'moonlit-menagerie-proto',
-    title: 'Moonlit Lighting & Skit Suite for MZ',
-    subtitle: 'RPG Maker Plugin & Shader Sandbox',
+    id: 'rmmz-lighting-hud-pack',
+    title: 'RMMZ Point-Light & Bust Message Pack',
+    subtitle: 'RPG Maker MZ JavaScript Plugin Utility',
     category: 'Prototypes',
-    genreLabel: 'Plugin Suite · RPG Maker',
+    genreLabel: 'Prototype · JS Plugin',
     engine: 'RPG Maker MV',
     releaseYear: '2025',
     status: 'Released',
     badges: ['Prototype', 'JavaScript / Ruby', 'RPG Maker'],
     bannerUrl: '/src/assets/images/featured_rpg_maker_1793884387321.jpg',
     shortHook:
-      'An interactive tech-demo island showcasing custom PixiJS point-lighting shaders, VN-style bust message windows, and diagonal pixel movement for RPG Maker MV & MZ.',
+      'A pair of modular JavaScript plugins for RPG Maker MZ/MV adding note-tag map lighting and VN-style message bust positioning.',
     synopsis:
-      'Designed as both a playable 30-minute micro-adventure and a live showcase for my open-source RPG Maker plugin collection. Players can toggle lighting presets, inspect event note-tags in real time, and test how visual novel bust portraits integrate cleanly with classic retro RPG map exploration.',
+      'A practical plugin testbed demonstrating clean alias hooks in RPG Maker MZ. `Kuro_MapLight.js` reads `<Light: radius, hex>` tags on map events to attach additive PixiJS light sprites, while `Kuro_BustMsg.js` aligns character bust graphics above the message window.',
     keyFeatures: [
-      'PixiJS WebGL filter plugin for soft torchlight flicker, bioluminescent flora glow, and day/night ambient tinting',
-      'Drop-in Visual Novel Bust & Namebox controller supporting smooth cubic-bezier slide-ins and emotion sweat-drops',
-      'Compatible with both RPG Maker MV and MZ with zero external asset dependencies',
+      'Uses `@command` and `@param` annotations for native RPG Maker MZ Plugin Manager integration',
+      'Preserves compatibility with other map and battle plugins by aliasing rather than overwriting core methods',
+      'Includes a playable 2-map sandbox project showing all plugin commands and note-tag formats',
     ],
     metrics: {
-      playtime: '30 Mins Sandbox',
-      wordCountOrMaps: '8 Tech-Demo Maps',
-      endingsOrClasses: '14 Plugins Included',
+      playtime: '20 Mins Sandbox',
+      wordCountOrMaps: '2 Test Maps',
+      endingsOrClasses: '2 JS Plugins',
     },
     itchUrl: 'https://itch.io',
     steamUrl: 'https://store.steampowered.com',
     screenshots: [
       {
-        id: 'moon-ss-1',
-        title: 'Bioluminescent Shrine Shader Test',
-        caption: 'Testing additive mint crystal glow and torch attenuation radii in RPG Maker’s PixiJS stage.',
+        id: 'plug-ss-1',
+        title: 'Note-Tag Point Light Test Map',
+        caption: 'Testing radial light sprites attached to torch and crystal events via `<Light: 160, #6EE7B7>`.',
         imageUrl: '/src/assets/images/featured_rpg_maker_1793884387321.jpg',
         sceneType: 'rpg-map',
-        hudOverlayText: 'NOTE TAG: <Light: 180, #6EE7B7, pulse=0.15>',
-      },
-      {
-        id: 'moon-ss-2',
-        title: 'Alchemy Battle UI Layout Hook',
-        caption: 'Customizing `Window_BattleStatus` and `Spriteset_Battle` for crisp 16-bit pixel framing.',
-        imageUrl: '/src/assets/images/game_rpg_clockwork_dungeon_1793884390110.jpg',
-        sceneType: 'rpg-battle',
-        hudOverlayText: 'PLUGIN CALL: AstralUI.openSynthesisPalette()',
+        hudOverlayText: 'Event Note: <Light: 160, #6EE7B7> · BlendMode: PIXI.BLEND_MODES.ADD',
       },
     ],
     dialoguePreview: [
       {
-        id: 'mm-1',
-        speaker: 'Plugin Debugger NPC',
-        speakerRole: 'PixiJS Shader Controller',
+        id: 'pl-1',
+        speaker: 'Plugin Sandbox',
+        speakerRole: 'PluginManager Command Tester',
         accentColor: 'mint',
-        text: '“Greetings, developer! Use this interactive sandbox to toggle map lighting shaders or inspect the RPG Maker window skin parameters.”',
+        text: 'Select a plugin command to test how `Spriteset_Map` updates in real time:',
         choices: [
           {
-            label: 'Toggle <Light: Crystal_Mint_Glow> Shader',
-            nextNodeId: 'mm-2',
-            affectionOrStatDelta: 'PixiFilter ON',
+            label: 'PluginCommand: SetMapTint (#0B0D19, 60 frames)',
+            nextNodeId: 'pl-2',
+            affectionOrStatDelta: 'Tint Updated',
           },
           {
-            label: 'Test VN Bust Slide-In Transition',
-            nextNodeId: 'mm-3',
-            affectionOrStatDelta: '160ms Cubic-Bezier',
+            label: 'PluginCommand: ShowBust ("elara_smile", "right")',
+            nextNodeId: 'pl-3',
+            affectionOrStatDelta: 'Bust Sprite Loaded',
           },
         ],
       },
       {
-        id: 'mm-2',
-        speaker: 'Plugin Debugger NPC',
-        speakerRole: 'PixiJS Shader Controller',
+        id: 'pl-2',
+        speaker: 'Plugin Sandbox',
+        speakerRole: 'PluginManager Command Tester',
         accentColor: 'mint',
-        text: '“Ambient map tint shifted to #0B0D19 with a 180px radial mint point-light attached to the crystal event!”',
-        nextNodeId: 'mm-1',
+        text: 'Ambient darkness layer interpolated over 60 frames; event point-lights remain additive.',
+        nextNodeId: 'pl-1',
       },
       {
-        id: 'mm-3',
-        speaker: 'Plugin Debugger NPC',
-        speakerRole: 'PixiJS Shader Controller',
+        id: 'pl-3',
+        speaker: 'Plugin Sandbox',
+        speakerRole: 'PluginManager Command Tester',
         accentColor: 'mint',
-        text: '“Bust sprite eased into the right message anchor with automatic speaker dimming on inactive portraits.”',
-        nextNodeId: 'mm-1',
+        text: 'Loaded `img/pictures/elara_smile.png` anchored to `Window_Message` top-right edge.',
+        nextNodeId: 'pl-1',
       },
     ],
   },
@@ -606,160 +637,250 @@ export const LIBRARY_GAMES: GameProject[] = [
 export const SKILLS_AND_TOOLS: SkillToolItem[] = [
   {
     id: 'skill-renpy',
-    name: "Ren'Py Engine",
+    name: "Ren'Py (Screen Language & ATL)",
     category: 'Core Engine',
     accent: 'pink',
-    experienceYears: '5+ Years · 6 Shipped Titles',
+    experienceYears: 'Ren\'Py 8.x · Python 3',
     summary:
-      'Deep mastery of Ren\'Py 8, ATL (Animation & Transformation Language), LayeredImages, and bespoke Screen Language UI architecture that replaces default templates with unforgettable visual novel presentation.',
+      'Building custom visual novel UI screens, non-standard menus, and layered sprite definitions using Ren\'Py Screen Language and Animation & Transformation Language (ATL).',
     capabilities: [
-      'Custom Screen Language menus, codex encyclopedias & clue deduction boards',
-      '3D Stage Camera (`perspective True`) multi-plane parallax cinematography',
-      'LayeredImage sprite systems with dynamic outfits, expressions & auto-blink',
-      'Steam Achievements, multi-language localization & persistent loop memory',
+      'Custom Screen Language layouts for save/load, backlog, and evidence notebooks',
+      'LayeredImage sprite setups (expressions, outfits, auto-blink displayables)',
+      'ATL transforms for camera movement, transitions, and UI hover states',
+      'Persistent variables and multi-route conditional state tracking',
     ],
-    codeSnippetTitle: 'custom_astrolabe_hud.rpy',
+    codeSnippetTitle: 'screens_evidence.rpy',
     codeLanguage: 'renpy',
-    codeSnippet: `screen astrolabe_deduction(clues_found, resonance_level):
+    codeSnippet: `screen evidence_notebook(clue_list):
+    tag menu
     modal True
-    zorder 90
     frame:
-        background "#0B0D19F2"
-        padding (32, 28)
-        xalign 0.5 yalign 0.5
+        style_prefix "notebook"
+        xsize 860 ysize 540 xalign 0.5 yalign 0.5
+        has hbox:
+            spacing 24
         vbox:
-            spacing 14
-            text "ASTRAL DEDUCTION MATRIX" size 18 color "#F472B6"
-            for clue in clues_found:
-                textbutton "[clue.title]":
-                    action [SetVariable("active_clue", clue), Play("sound", "sfx/chime.ogg")]`,
+            xsize 280 spacing 8
+            label "Collected Clues"
+            for item in clue_list:
+                textbutton item.title:
+                    selected (selected_clue == item)
+                    action SetScreenVariable("selected_clue", item)`,
   },
   {
     id: 'skill-rpgmaker',
     name: 'RPG Maker (MZ / MV / VX Ace)',
     category: 'Core Engine',
     accent: 'mint',
-    experienceYears: '6+ Years · 95+ Custom Maps',
+    experienceYears: 'MZ / MV / VX Ace',
     summary:
-      'End-to-end retro RPG production—from intricate multi-layer tileset mapping and common-event state machines to custom turn-based combat formulas, cutscene choreography, and seamless audio mixing.',
+      'Structuring clean Common Event systems, database combat formulas, and multi-layer tileset maps with region-based triggers and custom window layouts.',
     capabilities: [
-      'Parallax & shift-click tileset mapping with collision & region-ID triggers',
-      'Complex non-linear quest tracking via clean Common Event architectures',
-      'Balanced tactical combat curves, elemental weaknesses & combo skill formulas',
-      '60 FPS deployment optimization for Windows, macOS, Web & Steam Deck',
+      'Common Event state machines for camp menus, crafting, and quest logs',
+      'Custom damage formulas, state buffs, and turn-based skill balancing',
+      'Parallax & tileset mapping with passability flags and Region IDs',
+      ' Web/PC deployment packaging and audio/image asset optimization',
     ],
-    codeSnippetTitle: 'ShrineResonanceEvent.json (Event Logic)',
+    codeSnippetTitle: 'CommonEvent_CampMenu.txt',
     codeLanguage: 'text',
-    codeSnippet: `◆If：Script: $gameParty.hasItem($dataItems[14]) // Astral Tuning Fork
-  ◆Play SE：Crystal_Chime (90, 100, 0)
-  ◆Plugin Command：AstralLighting, SetPointLight
-  ：              ：EventId = 8, Color = #6EE7B7, Radius = 220
-  ◆Show Text：Rowan_Bust(1), Window, Bottom
-  ：         ：The ancient crystal responds to the tuning fork!
-  ◆Control Self Switch：A = ON`,
+    codeSnippet: `// Common Event #012: Shrine Camp & Crafting Check
+◆If：Script: $gameMap.regionId($gamePlayer.x, $gamePlayer.y) === 10
+  ◆Show Choices：Rest & Save, Craft Reagents, Cancel (Window, Right, #1, #3)
+  ：When Rest & Save
+    ◆Play SE：Recovery (90, 100, 0)
+    ◆Recover All：Entire Party
+    ◆Open Save Screen
+  ：When Craft Reagents
+    ◆Plugin Command：Kuro_Alchemy, OpenCraftingScene`,
   },
   {
     id: 'skill-python',
     name: 'Python (Ren\'Py Scripting)',
     category: 'Scripting & Code',
     accent: 'pink',
-    experienceYears: '5+ Years · Custom Displayables',
+    experienceYears: 'Python 3 · Custom Modules',
     summary:
-      'Extending Ren\'Py far beyond standard dialogue scripts with pure Python modules: custom `renpy.Displayable` interactive minigames, graph-based story flowcharts, and automated dialogue lint tools.',
+      'Writing Python modules inside `init python:` blocks and `_ren.py` files for custom data structures, `renpy.Displayable` minigames, and dialogue callbacks.',
     capabilities: [
-      'Creator-Defined Displayables (`renpy.Displayable`) for custom 2D gameplay',
-      'Directed Acyclic Graph (DAG) narrative state trackers & timeline jump trees',
-      'Custom Python callbacks for dynamic audio stem crossfading per emotion',
-      'Automated word-count, unreachable-label, and missing-sprite build validators',
+      'Creator-Defined Displayables (`renpy.Displayable`) for interactive 2D widgets',
+      'Data classes for inventory items, clue graphs, and character relationship stats',
+      'Character callbacks for dynamic text blips and speaker portrait highlighting',
+      'Build-time validation scripts to catch broken jumps or missing image tags',
     ],
-    codeSnippetTitle: 'narrative_graph.py',
+    codeSnippetTitle: 'clue_manager_ren.py',
     codeLanguage: 'python',
-    codeSnippet: `init python:
-    class TimelineTracker:
-        def __init__(self):
-            self.visited_nodes = set(persistent.unlocked_nodes or [])
+    codeSnippet: `"""renpy
+init -5 python:
+"""
+from dataclasses import dataclass
 
-        def record(self, node_id, clue_flag=None):
-            self.visited_nodes.add(node_id)
-            persistent.unlocked_nodes = list(self.visited_nodes)
-            if clue_flag:
-                renpy.notify(f"Clue Recorded: {clue_flag}")`,
+@dataclass
+class ClueItem:
+    id: str
+    title: str
+    desc: str
+    unlocked: bool = False
+
+def unlock_clue(registry: dict, clue_id: str) -> None:
+    if clue_id in registry and not registry[clue_id].unlocked:
+        registry[clue_id].unlocked = True
+        renpy.notify(f"Notebook updated: {registry[clue_id].title}")`,
   },
   {
     id: 'skill-js-ruby',
     name: 'JavaScript / Ruby (RPG Maker Plugins)',
     category: 'Scripting & Code',
     accent: 'mint',
-    experienceYears: '5+ Years · MZ/MV JS & RGSS3',
+    experienceYears: 'ES6+ JS (PIXI) · Ruby RGSS3',
     summary:
-      'Authoring clean, conflict-free JavaScript plugins (PIXI.js v5/v7) for RPG Maker MZ/MV and Ruby (RGSS3) scripts for VX Ace to overhaul battle systems, window layouts, and map shaders.',
+      'Developing modular JavaScript plugins for RPG Maker MZ/MV and Ruby (RGSS3) scripts for VX Ace by cleanly aliasing core `Window_*`, `Scene_*`, and `BattleManager` methods.',
     capabilities: [
-      'RPG Maker MZ/MV plugin architecture (`PluginManager.registerCommand`)',
-      'Custom `Window_Selectable` & `Scene_Battle` UI overhauls with zero lag',
-      'PixiJS WebGL fragment shaders for dynamic weather, fog, and crystal lighting',
-      'Ruby RGSS3 legacy script maintenance and framerate modernization',
+      'RPG Maker MZ plugin headers (`@param`, `@command`) and `PluginManager.registerCommand`',
+      'Customizing `Window_Selectable`, `Window_BattleStatus`, and HUD sprites',
+      'PixiJS sprite containers and blend modes for map lighting overlays',
+      'Maintaining conflict-free method aliases across multi-plugin load orders',
     ],
-    codeSnippetTitle: 'Astral_TimelineBattle.js',
+    codeSnippetTitle: 'Kuro_TurnOrderHud.js',
     codeLanguage: 'javascript',
     codeSnippet: `/*:
  * @target MZ
- * @plugindesc v1.4 Timeline Turn-Order & Combo Art HUD
+ * @plugindesc v1.2 Displays a compact turn-order bar in Scene_Battle.
+ * @command RefreshTurnBar
  */
 (() => {
-  const _BattleManager_startInput = BattleManager.startInput;
-  BattleManager.startInput = function() {
-    _BattleManager_startInput.call(this);
-    this.recalculateTimelineOrder();
-  };
+  const PLUGIN_NAME = "Kuro_TurnOrderHud";
+  PluginManager.registerCommand(PLUGIN_NAME, "RefreshTurnBar", () => {
+    const scene = SceneManager._scene;
+    if (scene instanceof Scene_Battle && scene._turnOrderWindow) {
+      scene._turnOrderWindow.refresh();
+    }
+  });
 })();`,
   },
   {
     id: 'skill-writing',
-    name: 'Writing & Narrative Design',
+    name: 'Narrative Design & Dialogue Scripting',
     category: 'Creative Craft',
     accent: 'pink',
-    experienceYears: '350,000+ Published Words',
+    experienceYears: 'Branching Scripts · Pacing',
     summary:
-      'Structuring emotionally resonant character arcs, mystery clue trails, and meaningful branching choices where player agency shapes both intimate relationships and world-scale lore.',
+      'Writing clear, well-paced dialogue and structuring branching flowcharts where player choices track cleanly through boolean flags and integer variables.',
     capabilities: [
-      'Branching route architecture (mystery loops, character affinity & true routes)',
-      'Distinct character voice bibles, pacing beats, and optional JRPG party skits',
-      'Environmental storytelling through item descriptions and archive lore logs',
-      'Bilingual localization preparation and voice-over script direction sheets',
+      'Readable `.rpy` script organization using scoped labels and local variables',
+      'Mystery clue progression and conditional dialogue options (`if flag:`)',
+      'Concise RPG NPC dialogue, item descriptions, and party camp banter',
+      'String extraction and translation-ready script formatting (`renpy.translate`)',
     ],
-    codeSnippetTitle: 'act2_conservatory_dialogue.rpy',
+    codeSnippetTitle: 'ch2_interrogation.rpy',
     codeLanguage: 'renpy',
-    codeSnippet: `label conservatory_midnight_confrontation:
-    scene bg astral_dome_night with dissolve
-    show selene coat_serious at center
-    selene "Every star chart in Sector Four has been predated by a century."
+    codeSnippet: `label ch2_supervisor_briefing:
+    show selene coat_neutral at left
+    selene "I finished auditing the night shift gate logs."
+
     menu:
-        "Present the silver phosphor ink vial" if has_silver_ink:
-            jump route_truth_unveiled
-        "Feign ignorance and protect the apprentice":
-            $ apprentice_trust += 2
-            jump route_silent_accomplice`,
+        "Point out the 40-minute gap in Entry #14" if clue_timestamp:
+            $ supervisor_pressured = True
+            jump ch2_contradiction_resolved
+
+        "Hand over the standard summary report":
+            jump ch2_standard_close`,
   },
   {
     id: 'skill-art',
-    name: 'Digital Art & Pixel Art',
+    name: '2D Asset Pipeline & Pixel Art',
     category: 'Creative Craft',
     accent: 'mint',
     experienceYears: 'Aseprite · Clip Studio Paint',
     summary:
-      'Bridging expressive high-resolution anime character illustrations for Visual Novels with crisp, color-indexed 16-bit sprites, animated battle battlers, and modular tilesets for Retro RPGs.',
+      'Preparing game-ready visual assets: color-indexed pixel art tilesets, 3-frame walk cycles, custom windowskins, and sliced PSD character layers for Ren\'Py.',
     capabilities: [
-      'Cel-shaded Visual Novel character sprites, expression sheets & event CGs',
-      '16-bit & 32-bit pixel art sprites, 4-direction walk cycles & combat animations',
-      'Auto-tile terrain sets, animated water/torch tiles, and cohesive color palettes',
-      'Custom UI windowskins, pixel bitmap fonts, and ornate VN dialogue frames',
+      '48x48 and 16x16 pixel tilesets formatted for RPG Maker auto-tile standards',
+      'Character sprite sheets, side-view battler frames, and icon sets in Aseprite',
+      'Slicing layered character portraits into optimized WebP assets for Ren\'Py',
+      'Custom 9-slice UI frames, bitmap fonts, and `Window.png` skins',
     ],
-    codeSnippetTitle: 'palette_and_sprite_spec.txt',
-    codeLanguage: 'text',
-    codeSnippet: `PALETTE SPEC: "Midnight Astral & Mint" (32-Color Indexed)
-• Deep Shadow Void:  #0B0D19  |  Twilight Slate:   #151930
-• Astral Mint Glow:  #6EE7B7  |  Sakura Highlight: #F472B6
-• Sprite Grid:       24x32px Overworld / 64x64px Side-View Battler
-• VN Bust Export:    2048x2560px PSD -> Ren'Py LayeredImage WebP`,
+    codeSnippetTitle: 'sprites_selene.rpy',
+    codeLanguage: 'renpy',
+    codeSnippet: `layeredimage selene:
+    always:
+        "images/sprites/selene/base_body.webp"
+    group outfit:
+        attribute coat default:
+            "images/sprites/selene/outfit_coat.webp"
+    group eyes:
+        attribute neutral default:
+            "images/sprites/selene/eyes_neutral.webp"
+        attribute serious:
+            "images/sprites/selene/eyes_serious.webp"`,
+  },
+];
+
+export const DEVLOG_POSTS: DevlogPost[] = [
+  {
+    id: 'devlog-renpy-ui',
+    title: 'Structuring an Evidence Notebook in Ren\'Py Screen Language',
+    date: 'October 2026',
+    readTime: '4 min read',
+    engineTag: "Ren'Py 8.2",
+    accent: 'pink',
+    summary:
+      'How to separate clue data from UI presentation using Python `@dataclass` objects and `SetScreenVariable` in Ren\'Py 8.',
+    keyTakeaways: [
+      'Store clue definitions in a Python dictionary so save files only serialize small ID strings or booleans',
+      'Use `SetScreenVariable` inside the notebook screen to avoid polluting global narrative variables',
+      'Bind `present_clue` actions to return the selected clue ID directly to the active dialogue label',
+    ],
+    codeSnippet: `init python:
+    def get_unlocked_clues(clue_dict):
+        return [c for c in clue_dict.values() if c.unlocked]`,
+    articleBody: [
+      'When building a mystery visual novel in Ren\'Py, it is tempting to hardcode clue descriptions directly inside `screens.rpy` using dozens of `if` statements. However, that approach quickly becomes difficult to maintain once a project grows past a few chapters.',
+      'Instead, defining a lightweight Python `@dataclass` for clues lets you pass a filtered list into a single reusable `screen evidence_notebook(clues)`. The screen handles layout and selection state locally, keeping both your UI code and narrative scripts clean.',
+    ],
+  },
+  {
+    id: 'devlog-mz-plugins',
+    title: 'Writing Conflict-Free Window Aliases in RPG Maker MZ',
+    date: 'August 2026',
+    readTime: '5 min read',
+    engineTag: 'RPG Maker MZ',
+    accent: 'mint',
+    summary:
+      'Best practices for extending `Scene_Battle` and `Window_Selectable` in JavaScript without breaking other plugins in the load order.',
+    keyTakeaways: [
+      'Always store a reference to the original prototype method before overriding it',
+      'Parse note-tags once during `DataManager.onLoad` or `Game_Event.initialize` rather than every frame',
+      'Use `PluginManager.registerCommand` with typed arguments instead of legacy `Game_Interpreter.pluginCommand` strings',
+    ],
+    codeSnippet: `const _Scene_Battle_createAllWindows = Scene_Battle.prototype.createAllWindows;
+Scene_Battle.prototype.createAllWindows = function() {
+  _Scene_Battle_createAllWindows.call(this);
+  this.createCustomTurnWindow();
+};`,
+    articleBody: [
+      'In RPG Maker MZ, the core engine is exposed as readable ES6 classes (`Window_Base`, `Scene_Map`, `BattleManager`). The most common cause of plugin conflicts is overwriting a prototype method completely instead of calling the original implementation via `.call(this)`.',
+      'By wrapping your plugin inside an IIFE and aliasing `Scene_Battle.prototype.createAllWindows`, your custom HUD windows mount cleanly alongside third-party battle plugins.',
+    ],
+  },
+  {
+    id: 'devlog-asset-pipeline',
+    title: 'Optimizing Layered Character Sprites and 48x48 Tilesets',
+    date: 'June 2026',
+    readTime: '4 min read',
+    engineTag: 'Pixel Art & Shaders',
+    accent: 'pink',
+    summary:
+      'Practical export settings for WebP visual novel portraits and indexed PNG tilesets to keep game download sizes small.',
+    keyTakeaways: [
+      'Export Ren\'Py `LayeredImage` parts as lossless or 90%-quality WebP to cut archive size by ~65% vs PNG',
+      'Keep RPG Maker MZ auto-tiles on a strict 48x48 grid (with 24x24 sub-tile corners) to prevent seam artifacts',
+      'Share a consistent dark-indigo shadow ramp (#0B0D19 to #1E2544) across both pixel art and UI windowskins',
+    ],
+    codeSnippet: `# Batch convert cropped sprite layers to WebP
+cwebp -q 90 -alpha_q 100 outfit_coat.png -o outfit_coat.webp`,
+    articleBody: [
+      'Visual novels with multiple outfits and expressions can easily bloat to hundreds of megabytes if every combination is exported as a full-frame PNG. Using Ren\'Py’s `layeredimage` system with cropped WebP layers reduces both disk usage and VRAM footprint.',
+      'For RPG Maker projects, maintaining an indexed palette in Aseprite ensures that dungeon tiles, character sprites, and custom window frames share cohesive contrast without muddy midtones.',
+    ],
   },
 ];

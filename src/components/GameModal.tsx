@@ -333,11 +333,11 @@ export const GameModal: React.FC<GameModalProps> = ({
               )}
             </div>
 
-            {/* Right 5 Columns: Synopsis & Key Features */}
+            {/* Right 5 Columns: Project Overview & Implementation Details */}
             <div className="lg:col-span-5 space-y-5 bg-[#0C1020]/90 p-5 rounded-xl border border-slate-800/90">
               <div>
                 <h3 className="font-mono text-xs uppercase tracking-wider text-[#F472B6] mb-2">
-                  Synopsis &amp; Worldbuilding
+                  Project Overview &amp; Gameplay Loop
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                   {game.synopsis}
@@ -346,7 +346,7 @@ export const GameModal: React.FC<GameModalProps> = ({
 
               <div className="pt-4 border-t border-slate-800/80">
                 <h3 className="font-mono text-xs uppercase tracking-wider text-[#6EE7B7] mb-2.5">
-                  Key Features &amp; Architecture
+                  Technical Implementation
                 </h3>
                 <ul className="space-y-2 text-xs text-slate-300 leading-relaxed">
                   {game.keyFeatures.map((feat) => (

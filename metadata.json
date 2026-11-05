@@ -1,6 +1,8 @@
 {
   "name": "Astral & Pixel — Game Developer Portfolio",
-  "description": "Game Developer Portfolio specializing in story-rich Visual Novels built with Ren'Py and retro pixel-art RPGs crafted in RPG Maker.",
+  "description": "Game Developer Portfolio specializing in story-rich Visual Novels built with Ren'Py and retro pixel-art RPGs crafted in RPG Maker. Include interactive project galleries, a development blog, and playable browser-based demos for each title.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

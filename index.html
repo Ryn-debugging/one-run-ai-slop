@@ -3,10 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var currentFetch = typeof window.fetch === 'function' ? window.fetch.bind(window) : undefined;
+          var ownDesc = Object.getOwnPropertyDescriptor(window, 'fetch');
+          var protoDesc = Object.getOwnPropertyDescriptor(Window.prototype, 'fetch');
+          var desc = ownDesc || protoDesc;
+          if (!ownDesc || (desc && desc.get && !desc.set && desc.configurable !== false)) {
+            Object.defineProperty(window, 'fetch', {
+              configurable: true,
+              enumerable: true,
+              get: function () {
+                return currentFetch;
+              },
+              set: function (nextFetch) {
+                currentFetch = nextFetch;
+              },
+            });
+          }
+        } catch (_err) {
+          // Safely ignore if window.fetch is non-configurable
+        }
+      })();
+    </script>
     <title>Astral &amp; Pixel — Game Developer Portfolio</title>
-    <meta name="description" content="Game Developer Portfolio specializing in story-rich Visual Novels built with Ren'Py and retro pixel-art RPGs crafted in RPG Maker." />
+    <meta name="description" content="Game Developer Portfolio specializing in story-rich Visual Novels built with Ren'Py and retro pixel-art RPGs crafted in RPG Maker. Include interactive project galleries, a development blog, and playable browser-based demos for each title." />
     <meta property="og:title" content="Astral &amp; Pixel — Game Developer Portfolio" />
-    <meta property="og:description" content="Game Developer Portfolio specializing in story-rich Visual Novels built with Ren'Py and retro pixel-art RPGs crafted in RPG Maker." />
+    <meta property="og:description" content="Game Developer Portfolio specializing in story-rich Visual Novels built with Ren'Py and retro pixel-art RPGs crafted in RPG Maker. Include interactive project galleries, a development blog, and playable browser-based demos for each title." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

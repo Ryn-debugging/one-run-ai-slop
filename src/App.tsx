@@ -9,6 +9,7 @@ import {
   FEATURED_PROJECTS,
   LIBRARY_GAMES,
   SKILLS_AND_TOOLS,
+  DEVLOG_POSTS,
 } from './data/portfolioData';
 import { type GameProject } from './utils/portfolioLogic';
 import { Navbar } from './components/Navbar';
@@ -16,6 +17,7 @@ import { HeroSection } from './components/HeroSection';
 import { FeaturedShowcase } from './components/FeaturedShowcase';
 import { GameLibraryGrid } from './components/GameLibraryGrid';
 import { SkillsToolsSection } from './components/SkillsToolsSection';
+import { DevlogSection } from './components/DevlogSection';
 import { GameModal } from './components/GameModal';
 import { FooterSection } from './components/FooterSection';
 
@@ -84,9 +86,12 @@ export default function App() {
 
         {/* 4. Skills & Tools Section */}
         <SkillsToolsSection skills={SKILLS_AND_TOOLS} />
+
+        {/* 5. Development Blog & Architecture Notes */}
+        <DevlogSection posts={DEVLOG_POSTS} />
       </main>
 
-      {/* 5. Contact & Socials Footer */}
+      {/* 6. Contact & Socials Footer */}
       <FooterSection studioName={studioName} />
 
       {/* Interactive Screenshot & Synopsis Modal */}

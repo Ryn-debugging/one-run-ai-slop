@@ -17,7 +17,7 @@ export const Navbar: React.FC<NavbarProps> = ({ studioTitle, onOpenContactModal 
           {studioTitle}
         </a>
 
-        {/* Zone 2: 4 concise single-line text navigation links */}
+        {/* Zone 2: 5 concise single-line text navigation links */}
         <nav
           aria-label="Primary Navigation"
           className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300"
@@ -41,8 +41,14 @@ export const Navbar: React.FC<NavbarProps> = ({ studioTitle, onOpenContactModal 
             Skills &amp; Tools
           </a>
           <a
-            href="#contact"
+            href="#devlog"
             className="hover:text-[#6EE7B7] hover:underline underline-offset-8 transition-colors whitespace-nowrap shrink-0 py-1"
+          >
+            Devlog
+          </a>
+          <a
+            href="#contact"
+            className="hover:text-[#F472B6] hover:underline underline-offset-8 transition-colors whitespace-nowrap shrink-0 py-1"
           >
             Socials
           </a>

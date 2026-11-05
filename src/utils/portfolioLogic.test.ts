@@ -5,6 +5,7 @@ import {
   getCategoryCounts,
   getNextSlideIndex,
   resolveNextDialogueNode,
+  ensureWritableFetch,
   type GameProject,
   type DialogueNode,
 } from './portfolioLogic';
@@ -160,3 +161,29 @@ test('resolveNextDialogueNode transitions via choices and loops back safely', ()
   const loopBack = resolveNextDialogueNode(mockDialogue, 'node-2');
   assert.equal(loopBack.id, 'node-1');
 });
+
+test('ensureWritableFetch converts a getter-only fetch property into a writable getter/setter pair', () => {
+  const proto = {};
+  const originalFetch = () => 'original';
+  Object.defineProperty(proto, 'fetch', {
+    configurable: true,
+    enumerable: true,
+    get() {
+      return originalFetch;
+    },
+  });
+
+  const mockWindow = Object.create(proto) as Record<string, unknown>;
+  assert.throws(() => {
+    'use strict';
+    mockWindow.fetch = () => 'intercepted';
+  }, TypeError);
+
+  const ok = ensureWritableFetch(mockWindow);
+  assert.equal(ok, true);
+
+  const interceptedFetch = () => 'intercepted';
+  mockWindow.fetch = interceptedFetch;
+  assert.equal(mockWindow.fetch, interceptedFetch);
+});
+

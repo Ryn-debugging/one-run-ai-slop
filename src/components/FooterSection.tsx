@@ -50,15 +50,15 @@ export const FooterSection: React.FC<FooterSectionProps> = ({ studioName }) => {
           <div className="lg:col-span-6 flex flex-col justify-between space-y-8">
             <div>
               <div className="text-xs font-mono text-[#6EE7B7] tracking-wide mb-2">
-                04. CONNECT &amp; COLLABORATE
+                05. CONTACT &amp; LINKS
               </div>
               <h2 className="font-display text-3xl font-bold text-slate-50 tracking-tight mb-3">
-                Let&apos;s Build Unforgettable Worlds
+                Storefronts, Code &amp; Direct Contact
               </h2>
               <p className="text-sm text-slate-400 leading-relaxed max-w-[50ch] mb-6">
-                Available for custom Ren&apos;Py Screen Language UI programming,
-                RPG Maker MZ JavaScript plugin commissions, narrative design
-                consulting, and indie studio collaborations.
+                Open to contract work and indie team collaborations involving
+                Ren&apos;Py UI/Python scripting, RPG Maker MZ JavaScript plugins,
+                event scripting, and 2D asset integration.
               </p>
 
               {/* Required 5 Social & Platform Links: itch.io, Steam, GitHub, Twitter/X, Discord */}

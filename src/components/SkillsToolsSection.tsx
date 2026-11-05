@@ -36,23 +36,75 @@ export const SkillsToolsSection: React.FC<SkillsToolsSectionProps> = ({
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <div className="text-xs font-mono text-[#F472B6] tracking-wide mb-2">
-              03. TECHNICAL &amp; CREATIVE ARSENAL
+              03. SKILLS, TOOLS &amp; CODE SAMPLES
             </div>
             <h2
               className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-50"
               style={{ textWrap: 'balance' }}
             >
-              Skills, Engines &amp; Scripting Architecture
+              Engines, Scripting &amp; Asset Pipeline
             </h2>
           </div>
           <p className="text-sm text-slate-400 max-w-[48ch] leading-relaxed">
-            Click any discipline card below to inspect real production code,
-            Ren&apos;Py Screen Language layouts, and RPG Maker plugin scripts.
+            Select any card below to inspect code samples in the live viewer—including
+            Ren&apos;Py Screen Language, Python data classes, and RPG Maker MZ
+            JavaScript plugins.
           </p>
         </div>
 
+        {/* Live Code Inspector Bar at Top of Technical Section for Immediate Visibility */}
+        <div className="rounded-2xl overflow-hidden rpg-window-surface mb-10">
+          <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-3.5 bg-[#0B0D19]/95 border-b border-slate-800">
+            <div className="flex items-center gap-3 text-xs font-mono">
+              <Code2
+                className={`w-4 h-4 ${
+                  activeSkill.accent === 'pink'
+                    ? 'text-[#F472B6]'
+                    : 'text-[#6EE7B7]'
+                }`}
+              />
+              <span className="font-semibold text-slate-100">
+                {activeSkill.name}
+              </span>
+              <span aria-hidden="true" className="text-slate-600">
+                ·
+              </span>
+              <span className="text-slate-400">
+                {activeSkill.codeSnippetTitle}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="hidden sm:inline-block text-[11px] font-mono text-slate-400">
+                lang: {activeSkill.codeLanguage}
+              </span>
+              <button
+                type="button"
+                onClick={() => handleCopySnippet(activeSkill)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-slate-200 bg-[#161B33] hover:bg-[#1F2647] border border-slate-700 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              >
+                {copiedId === activeSkill.id ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-[#6EE7B7]" />
+                    <span className="text-[#6EE7B7]">Copied Code</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>Copy Code</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
+          <pre className="p-6 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto leading-relaxed bg-[#080A14]">
+            <code>{activeSkill.codeSnippet}</code>
+          </pre>
+        </div>
+
         {/* 6-Card Tech Stack Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills.map((skill) => {
             const isSelected = skill.id === activeSkill.id;
             const isPink = skill.accent === 'pink';
@@ -72,7 +124,6 @@ export const SkillsToolsSection: React.FC<SkillsToolsSectionProps> = ({
                 }`}
               >
                 <div>
-                  {/* Quiet Metadata Header */}
                   <div className="flex items-center justify-between gap-2 text-xs font-mono mb-3">
                     <span
                       className={
@@ -81,24 +132,21 @@ export const SkillsToolsSection: React.FC<SkillsToolsSectionProps> = ({
                     >
                       {skill.category}
                     </span>
-                    <span className="text-slate-400 tabular-nums">
+                    <span className="text-slate-400">
                       {skill.experienceYears}
                     </span>
                   </div>
 
-                  {/* Skill Name */}
-                  <h3 className="font-display text-xl font-bold text-slate-50 mb-2.5">
+                  <h3 className="font-display text-lg font-bold text-slate-50 mb-2">
                     {skill.name}
                   </h3>
 
-                  {/* Summary */}
-                  <p className="text-sm text-slate-300 leading-relaxed mb-5">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
                     {skill.summary}
                   </p>
                 </div>
 
-                {/* Capabilities List */}
-                <div className="w-full pt-4 border-t border-slate-800/80">
+                <div className="w-full pt-3.5 border-t border-slate-800/80">
                   <ul className="space-y-1.5 text-xs text-slate-300">
                     {skill.capabilities.map((cap) => (
                       <li key={cap} className="flex items-start gap-2">
@@ -128,59 +176,13 @@ export const SkillsToolsSection: React.FC<SkillsToolsSectionProps> = ({
                           : 'text-slate-400'
                       }`}
                     >
-                      {isSelected ? 'Viewing Script ▾' : 'Inspect Script ▸'}
+                      {isSelected ? 'Active Snippet ▴' : 'Load Snippet ▸'}
                     </span>
                   </div>
                 </div>
               </button>
             );
           })}
-        </div>
-
-        {/* Interactive Production Code / Script Inspector */}
-        <div className="rounded-2xl overflow-hidden rpg-window-surface">
-          <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-3.5 bg-[#0B0D19]/90 border-b border-slate-800">
-            <div className="flex items-center gap-3 text-xs font-mono">
-              <Code2
-                className={`w-4 h-4 ${
-                  activeSkill.accent === 'pink'
-                    ? 'text-[#F472B6]'
-                    : 'text-[#6EE7B7]'
-                }`}
-              />
-              <span className="font-semibold text-slate-100">
-                {activeSkill.name}
-              </span>
-              <span aria-hidden="true" className="text-slate-600">
-                ·
-              </span>
-              <span className="text-slate-400">
-                {activeSkill.codeSnippetTitle}
-              </span>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => handleCopySnippet(activeSkill)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-slate-200 bg-[#161B33] hover:bg-[#1F2647] border border-slate-700 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              {copiedId === activeSkill.id ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-[#6EE7B7]" />
-                  <span className="text-[#6EE7B7]">Copied Snippet</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5" />
-                  <span>Copy Code</span>
-                </>
-              )}
-            </button>
-          </div>
-
-          <pre className="p-6 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto leading-relaxed bg-[#090B15]/90">
-            <code>{activeSkill.codeSnippet}</code>
-          </pre>
         </div>
       </div>
     </section>

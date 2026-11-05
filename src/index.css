@@ -26,17 +26,33 @@
 
 /* Subtle retro RPG menu frame & VN dialogue glass surface */
 .vn-textbox-surface {
-  background: linear-gradient(180deg, rgba(19, 23, 43, 0.92) 0%, rgba(12, 15, 30, 0.97) 100%);
-  border: 1px solid rgba(244, 114, 182, 0.28);
-  box-shadow: 0 18px 40px -15px rgba(0, 0, 0, 0.7);
+  background: linear-gradient(180deg, rgba(19, 23, 43, 0.94) 0%, rgba(11, 13, 25, 0.98) 100%);
+  border: 1px solid rgba(244, 114, 182, 0.32);
+  box-shadow: 0 18px 40px -15px rgba(0, 0, 0, 0.75);
 }
 
 .rpg-window-surface {
-  background: linear-gradient(180deg, rgba(20, 26, 49, 0.95) 0%, rgba(13, 17, 34, 0.98) 100%);
-  border: 1px solid rgba(110, 231, 183, 0.32);
+  background: linear-gradient(180deg, rgba(20, 26, 49, 0.96) 0%, rgba(12, 16, 32, 0.99) 100%);
+  border: 1px solid rgba(110, 231, 183, 0.35);
   box-shadow:
-    inset 0 0 0 1px rgba(15, 23, 42, 0.9),
-    0 18px 40px -15px rgba(0, 0, 0, 0.75);
+    inset 0 0 0 2px rgba(11, 13, 25, 0.95),
+    0 18px 40px -15px rgba(0, 0, 0, 0.8);
+}
+
+/* Crisp CRT scanline subtle overlay for retro RPG frames */
+.crt-scanlines {
+  background-image: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.28) 50%
+  );
+  background-size: 100% 4px;
+}
+
+/* Subtle ambient starfield radial backdrop */
+.astral-ambient-glow {
+  background-image:
+    radial-gradient(circle at 18% 14%, rgba(244, 114, 182, 0.08) 0%, transparent 38%),
+    radial-gradient(circle at 82% 22%, rgba(110, 231, 183, 0.08) 0%, transparent 40%);
 }
 
 @media (prefers-reduced-motion: reduce) {

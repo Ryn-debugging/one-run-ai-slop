@@ -25,6 +25,39 @@ export interface ScreenshotItem {
   hudOverlayText: string;
 }
 
+export interface RpgPartyMember {
+  name: string;
+  job: string;
+  level: number;
+  hp: number;
+  maxHp: number;
+  mp: number;
+  maxMp: number;
+  equippedRelic: string;
+}
+
+export interface VnTextboxPreview {
+  chapterLabel: string;
+  speaker: string;
+  speakerTitle: string;
+  quote: string;
+  resonancePercent: number;
+  unlockedRouteName: string;
+}
+
+export interface DevlogPost {
+  id: string;
+  title: string;
+  date: string;
+  readTime: string;
+  engineTag: "Ren'Py 8.2" | 'RPG Maker MZ' | 'Pixel Art & Shaders';
+  accent: 'pink' | 'mint';
+  summary: string;
+  keyTakeaways: string[];
+  codeSnippet: string;
+  articleBody: string[];
+}
+
 export interface GameProject {
   id: string;
   title: string;
@@ -45,6 +78,8 @@ export interface GameProject {
     wordCountOrMaps: string;
     endingsOrClasses: string;
   };
+  vnCustomUi?: VnTextboxPreview;
+  rpgPartyStatus?: RpgPartyMember[];
   itchUrl: string;
   steamUrl: string;
   screenshots: ScreenshotItem[];
@@ -153,3 +188,43 @@ export function resolveNextDialogueNode(
 
   return nodes.find((n) => n.id === targetId) ?? nodes[0];
 }
+
+/**
+ * Ensures `fetch` on a target global object has both a getter and setter so
+ * browser extensions that wrap `window.fetch = ...` do not throw
+ * "TypeError: Cannot set property fetch of #<Window> which has only a getter".
+ */
+export function ensureWritableFetch(target: Record<string, unknown>): boolean {
+  try {
+    let currentFetch =
+      typeof target.fetch === 'function' ? target.fetch : undefined;
+    const ownDesc = Object.getOwnPropertyDescriptor(target, 'fetch');
+    const proto = Object.getPrototypeOf(target);
+    const protoDesc = proto
+      ? Object.getOwnPropertyDescriptor(proto, 'fetch')
+      : undefined;
+    const desc = ownDesc ?? protoDesc;
+
+    if (ownDesc && ownDesc.configurable === false) {
+      return false;
+    }
+
+    if (!ownDesc || (desc && desc.get && !desc.set)) {
+      Object.defineProperty(target, 'fetch', {
+        configurable: true,
+        enumerable: true,
+        get() {
+          return currentFetch;
+        },
+        set(nextFetch: unknown) {
+          currentFetch = nextFetch as typeof currentFetch;
+        },
+      });
+      return true;
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
